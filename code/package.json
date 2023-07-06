@@ -1,0 +1,16 @@
+{
+  "name": "ethcc-paris-2023-demo",
+  "version": "1.0.0",
+  "description": "Demo Code For @0xarthurxyz's ETHcc Paris 2023 Talk",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "@aaronmgdr",
+  "license": "MIT",
+  "dependencies": {
+    "@celo/abis": "^9.0.6",
+    "viem": "^1.2.9"
+  }
+}
