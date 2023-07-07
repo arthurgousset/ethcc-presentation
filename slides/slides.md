@@ -1,5 +1,7 @@
 ---
 marp: true
+theme: default
+size: 16:9
 ---
 
 # EthCC 6 - Building with purpose, building for all
