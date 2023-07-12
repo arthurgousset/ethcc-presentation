@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Demo Code For @0xarthurxyz's ETHcc Paris 2023 Talk",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js"
   },
@@ -12,5 +13,8 @@
   "dependencies": {
     "@celo/abis": "^9.0.6",
     "viem": "^1.2.9"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
   }
 }
