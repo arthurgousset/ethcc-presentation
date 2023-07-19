@@ -9,52 +9,30 @@ math: mathjax
 
 ### Introducing SocialConnect and rediscovering Celo's fee currency feature
 
-Presentation and material available on Github: [0xarthurxyz/ethcc-presentation](https://github.com/0xarthurxyz/ethcc-presentation)
+Presentation on Github: [0xarthurxyz/ethcc-presentation](https://github.com/0xarthurxyz/ethcc-presentation)
+
+<!-- ---
+
+## Table of content
+
++	Part 1: Rediscovering Celo's **fee currency** feature
++	Part 2: Introducing **SocialConnect** 
+
+I'm speaking on behalf of a lot of brilliant people who worked on Celo.
+I appreciate your time and the priviledge to be here and share some of the work we have been doing.
+
+A little bit about me, I work at cLabs, we are an infrastructure company building public goods
+for the Celo ecosystem.
+-->
 
 ---
+## Abstracting the concept of gas currencies
 
-## Agenda
-
-+	Convenient gas payments with (`feeCurrency` feature)
-+	User-friendly account discovery (SocialConnect plugin)
-
----
-# Part 1: Alternative gas currencies
++	User experience with native tokens: `CELO`, `ETH`, ...
++	User experience with stabletokens: `cUSD`, `cEUR`, ...
 
 ---
-## User experience
-
-### Crypto-native UX
-
-Before:
-
-1.	User wants to acquire NFT for $10
-1.	User onboards with fiat (e.g. credit card) and expects to pay $10
-1. 	User gets 10 USD stablecoin
-1.	User expects to transfers 10 USD stablecoin for NFT but must pay gas in native token
-1. 	User must acquire native token to pay gas (swap, exchange, buy extra token to pay gas)
-1. 	User transfers $10, pays gas in native token and is left with dust in native token
-
----
-## Crypto-newbie UX
-
-After:
-
-1.	User wants to acquire NFT for $10
-1.	User onboards with fiat (e.g. credit card) and expects to pay $10
-1. 	User gets 10 USD stablecoin
-1.	User transfers 10 USD stablecoin for NFT and pays gas in stablecoin
-1. 	User transfers $10, pays gas in stablecoin and is left with no dust
-
----
-## How?
-
-+	`feeCurrency` transaction field on Celo blockchain
-+	`viem` SDK
-+	cUSD (\$), cREAL (R\$), or cEUR (€) fee currencies on Celo
-
----
-## Example
+## Get started using fee currencies
 
 ```ts
 import 'viem' from "viem"
@@ -62,56 +40,96 @@ import { celo } from "viem/chains"
 import { stableTokenABI } from "@celo/abis"
 ```
 
-1. set up client
-2. send transaction
-
 ```ts
 const transaction = {
     from: account.address,
     to,
     value: parseEther(value),
     feeCurrency: FEE_CURRENCIES["cusd"],
-  }
-```
-
-
-
-Note: client with celo `chain` parameter is main innovation
-
-```ts
-const FEE_CURRENCIES = {
-  cusd: "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1",
-  creal: "0xE4D517785D091D3c54818832dB6094bcc2744545",
-  ceur: "0x10c892A6EC43a53E45D0B916B4b7D383B1b78C0F",
 }
 ```
 
----
-## Demo
-
-Run `yarn demo` to make demo transaction.
-
-Notes-to-self (REMOVE BEFORE TALK):
-
--	Show sender balance before
--	Make transaction (using script)
--	Show sender balance after
--	Open celoscan or celo explorer to see transaction
+🔗 Full demo on Github: [0xarthurxyz/ethcc-presentation](https://github.com/0xarthurxyz/ethcc-presentation)
 
 ---
-## Technical details
-
-+	`feeCurrency` implementation (whitelist, validator flows)
-+	`viem` implementation (transaction serialiser, EIP27.. wrapper)
-+	[WalletConnect v2 passes the feeCurrency field]
-+	stable token protocol (Mento protocol, but arbitrary token can be used)
-
-___
-
-This is something any chain can implement/customise in viem SDK.
+# Part 2: Introducing SocialConnect
 
 ---
-# Part 2: SocialConnect
+## Abstracting the concept of hexadecimal addresses
+
++	User experience with **hexadecimal** addresses: `0x76a4dac...a7315`
++	User experience with **phone** numbers, **email** addresses, and other social identifiers: `+54 182 143 21743`, `alice@example.com`, ...
+
+---
+## Get started using SocialConnect
+
+```ts
+// upload identifier -> address mapping to onchain registry
+await federatedAttestationsContract.registerAttestationAsIssuer(
+	obfuscatedIdentifier,
+	account,
+	NOW_TIMESTAMP
+);
+```
+
+```ts
+// lookup onchain mapping
+const attestations = federatedAttestationsContract.lookupAttestations(
+	obfuscatedIdentifier, 
+	[ this.issuer.address, ]
+);
+```
+
+🔗 Full demo website: [socialconnect.dev](https://www.socialconnect.dev/)
+
+---
+## Next steps
+
++	Learn more: [socialconnect.dev](https://www.socialconnect.dev/)
++	Join: ETHGlobal Paris hackathon
++	Find me: [@0xarthurxyz](https://twitter.com/0xarthurxyz)
+
+![bg right width:600px](assets/images/ethparis-hackathon.png)
+
+---
+## Appendix
+
+---
+## Fee currency - Technical details
+
++	`feeCurrency` feature uses a whitelist of tokens accepted as fee currencies
++	`viem` now has extensible transaction serialisers (uses EIP2718 to create a compliant TransactionType)
++	WalletConnect v2 passes the `feeCurrency` field in the transaction object
+
+---
+## SocialConnect Mapping
+
+![width:1100px](assets/images/mapping-example.png)
+
+---
+
+![bg width:450px](assets/images/feature-linkedwallets.png)
+
+---
+## 1 - Obfuscate
+
+![bg right width:600px](assets/images/requestflow-obfuscation.png)
+
+Our **privacy** API lets developers obfuscate identifiers while maintaining **interoperability** across applications.
+
+---
+## 2 - Register
+
+![bg right width:600px](assets/images/requestflow-register.png)
+
+Our SDK gives developers complete **freedom** to design **verification** flows and **register** identifiers.
+
+---
+## 3 - Search
+
+![bg right width:600px](assets/images/requestflow-search.png)
+
+Our SDK lets developers design **delightful** and intuitive **user experiences**.
 
 ---
 ## Metamask
@@ -137,38 +155,7 @@ This is something any chain can implement/customise in viem SDK.
 
 ![bg width:280px](assets/images/kaalademo-confirmation.png)
 
----
-## 1 - Obfuscate
-
-![bg right width:600px](assets/images/requestflow-obfuscation.png)
-
-Our **privacy** API lets developers obfuscate identifiers while maintaining **interoperability** across applications.
-
----
-## 2 - Register
-
-![bg right width:600px](assets/images/requestflow-register.png)
-
-Our SDK gives developers complete **freedom** to design **verification** flows and **register** identifiers.
-
----
-## 3 - Search
-
-![bg right width:600px](assets/images/requestflow-search.png)
-
-Our SDK lets developers design **delightful** and intuitive **user experiences**.
-
----
-
-![bg right width:400px](assets/images/feature-linkedwallets.png)
-<!-- ![bg right width:300px](assets/images/feature-linkedwallets-fullimage.png) -->
-
-
----
-## Mapping
-
-![width:1100px](assets/images/mapping-example.png)
-
+<!-- 
 ---
 # asd
 
@@ -197,3 +184,4 @@ Our SDK lets developers design **delightful** and intuitive **user experiences**
 | Plaintext | none | $\text{+54 182 143 21743}$ |
 | Hash | $\text{hash}(phoneNumber)$ | $\text{ea2eaa...30a9d55c}$ |
 | Salted Hash | $\text{saltedHash}(phoneNumber + salt)$ | $\text{f85b07...b2954ad7}$ |
+-->
