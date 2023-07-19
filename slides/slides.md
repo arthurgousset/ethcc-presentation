@@ -7,8 +7,9 @@ math: mathjax
 
 # EthCC 6 - Building with purpose, building for all
 
-Speaker: Arthur Gousset
-Date: Thu, Jul 20 2023
+### Introducing SocialConnect and rediscovering Celo's fee currency feature
+
+Presentation and material available on Github: [0xarthurxyz/ethcc-presentation](https://github.com/0xarthurxyz/ethcc-presentation)
 
 ---
 
