@@ -52,6 +52,13 @@ const transaction = {
 🔗 Full demo on Github: [0xarthurxyz/ethcc-presentation](https://github.com/0xarthurxyz/ethcc-presentation)
 
 ---
+## Technical details
+
++	`feeCurrency` feature uses a whitelist of tokens accepted as fee currencies
++	`viem` now has extensible transaction serialisers (uses EIP2718 to create compliant transaction types)
++	WalletConnect v2 passes the `feeCurrency` field in the transaction object
+
+---
 # Part 2: Introducing SocialConnect
 
 ---
@@ -59,6 +66,49 @@ const transaction = {
 
 +	User experience with **hexadecimal** addresses: `0x76a4dac...a7315`
 +	User experience with **phone** numbers, **email** addresses, and other social identifiers: `+54 182 143 21743`, `alice@example.com`, ...
+
+---
+## Metamask
+
+![bg right:66% width:280px](assets/images/metamaskdemo-desktop.png)
+
+![bg right width:280px](assets/images/metamaskdemo-recipient.png)
+
+---
+## Ledger
+
+![bg right:66% width:280px](assets/images/ledgerdemo-desktop.png)
+
+![bg right width:280px](assets/images/ledgerdemo-recipient.png)
+
+---
+
+![bg width:280px](assets/images/kaalademo-search.png)
+
+![bg width:280px](assets/images/kaalademo-amount.png)
+
+![bg width:280px](assets/images/kaalademo-recipient.png)
+
+![bg width:280px](assets/images/kaalademo-confirmation.png)
+
+---
+## Onboarding request flow
+
+![](assets/images/visualisation-register.png)
+
+---
+## Lookup request flow
+
+![](assets/images/visualisation-lookup.png)
+
+---
+## Technical intuition
+
+![width:1100px](assets/images/mapping-example.png)
+
+---
+
+![bg width:450px](assets/images/feature-linkedwallets.png)
 
 ---
 ## Get started using SocialConnect
@@ -95,65 +145,26 @@ const attestations = federatedAttestationsContract.lookupAttestations(
 ## Appendix
 
 ---
-## Fee currency - Technical details
-
-+	`feeCurrency` feature uses a whitelist of tokens accepted as fee currencies
-+	`viem` now has extensible transaction serialisers (uses EIP2718 to create a compliant TransactionType)
-+	WalletConnect v2 passes the `feeCurrency` field in the transaction object
-
----
-## SocialConnect Mapping
-
-![width:1100px](assets/images/mapping-example.png)
-
----
-
-![bg width:450px](assets/images/feature-linkedwallets.png)
-
----
-## 1 - Obfuscate
+## SocialConnect: Obfuscation
 
 ![bg right width:600px](assets/images/requestflow-obfuscation.png)
 
 Our **privacy** API lets developers obfuscate identifiers while maintaining **interoperability** across applications.
 
 ---
-## 2 - Register
+## SocialConnect: Registration
 
 ![bg right width:600px](assets/images/requestflow-register.png)
 
 Our SDK gives developers complete **freedom** to design **verification** flows and **register** identifiers.
 
 ---
-## 3 - Search
+## SocialConnect: Lookup
 
 ![bg right width:600px](assets/images/requestflow-search.png)
 
 Our SDK lets developers design **delightful** and intuitive **user experiences**.
 
----
-## Metamask
-
-![bg right:66% width:280px](assets/images/metamaskdemo-desktop.png)
-
-![bg right width:280px](assets/images/metamaskdemo-recipient.png)
-
----
-## Ledger
-
-![bg right:66% width:280px](assets/images/ledgerdemo-desktop.png)
-
-![bg right width:280px](assets/images/ledgerdemo-recipient.png)
-
----
-
-![bg width:280px](assets/images/kaalademo-search.png)
-
-![bg width:280px](assets/images/kaalademo-amount.png)
-
-![bg width:280px](assets/images/kaalademo-recipient.png)
-
-![bg width:280px](assets/images/kaalademo-confirmation.png)
 
 <!-- 
 ---
