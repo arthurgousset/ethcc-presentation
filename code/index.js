@@ -1,4 +1,10 @@
-import { createWalletClient, http, parseEther, createPublicClient } from "viem"
+import {
+  createWalletClient,
+  http,
+  parseEther,
+  createPublicClient,
+  hexToBigInt,
+} from "viem"
 import { celoAlfajores } from "viem/chains"
 import { privateKeyToAccount } from "viem/accounts"
 import { stableTokenABI } from "@celo/abis/types/wagmi/index.js?"
@@ -50,10 +56,13 @@ async function send({
   async function sendBasic() {
     // Transaction Object conforming to viem's SendTransactionParameters<typeof celo> type
     // This is ending native CELO but paying with CUSD
+    const price = await getGasPrice(client)
     const transaction = {
       to,
       value: parseEther(value),
       feeCurrency: FEE_CURRENCIES_ALFAJORES["cusd"],
+      maxFeePerGas: price,
+      maxPriorityFeePerGas: price,
     }
     console.log("Sending Transaction:", transaction)
     const hash = await client.sendTransaction(transaction)
@@ -63,6 +72,8 @@ async function send({
 
   // sending stable token or any contract interaction like this
   async function sendStable() {
+
+    const price = await getGasPrice(client)
     const hash = await client.writeContract({
       abi: stableTokenABI,
       address: FEE_CURRENCIES_ALFAJORES["cusd"],
@@ -70,12 +81,23 @@ async function send({
       args: [to, parseEther(value)],
       // set the fee currency on the contract write call
       feeCurrency: FEE_CURRENCIES_ALFAJORES["cusd"],
+      maxFeePerGas: price,
+      maxPriorityFeePerGas: price,
     })
     console.info("Transaction hash:", hash)
     return hash
   }
 }
 
-// send({ isStablePay: true }) // send stable token
+// to make sure we pay the right price for gas in the right currency
+async function getGasPrice(client) {
+  const priceHex = await client.request({
+    method: "eth_gasPrice",
+    params: [FEE_CURRENCIES_ALFAJORES["cusd"]],
+  })
+  return hexToBigInt(priceHex)
+}
+
+send({ isStablePay: true }) // send stable token
 // send({ isStablePay: false }) // send native CELO
 console.log("DONE")
