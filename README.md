@@ -2,6 +2,8 @@
 
 A repository with the material for my presentation at EthCC 🇫🇷
 
+<img src="slides/assets/images/ethcc-banner.png" width="450">
+
 ## TLDR
 
 +	🌠 Slides: [PDF](./slides/slides.pdf)
@@ -12,7 +14,6 @@ A repository with the material for my presentation at EthCC 🇫🇷
 ## Details
 
 +	Title: **Building with purpose, building for all**. Introducing [SocialConnect](socialconnect.dev) and rediscovering Celo's fee currency feature.
-	<img src="slides/assets/images/ethcc-banner.png" width="350">
 +	Date: **Thu, Jul 20 2023**
 +	Location: **Paris, France** 🇫🇷
 +	Conference: **EthCC 6**
