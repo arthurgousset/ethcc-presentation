@@ -7,7 +7,7 @@ A repository with the material for my presentation at EthCC 🇫🇷
 +	🌠 Slides: [PDF](./slides/slides.pdf)
 +	🛠️ Code: [`index.js`](./code/index.js)
 +	📽️ YouTube: [Arthur Gousset - Building with purpose, building for all.](https://www.youtube.com/watch?v=VB5jktz6f2U)
-	<img src="assets/images/youtube-banner-requestflow.png" width="650">
+	<a href="https://www.youtube.com/watch?v=VB5jktz6f2U"><img src="assets/images/youtube-banner-requestflow.png" width="650"></a>
 
 ## Details
 
