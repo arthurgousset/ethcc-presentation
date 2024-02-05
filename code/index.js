@@ -10,11 +10,6 @@ import { privateKeyToAccount } from "viem/accounts"
 import { stableTokenABI } from "@celo/abis/types/wagmi/index.js?"
 import "dotenv/config" // use to load private key for example
 
-const FEE_CURRENCIES_ALFAJORES = {
-  cusd: "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1",
-  creal: "0xE4D517785D091D3c54818832dB6094bcc2744545",
-  ceur: "0x10c892A6EC43a53E45D0B916B4b7D383B1b78C0F",
-}
 // for this example we send to the faucet
 const FAUCET_ALFAJORES = "0x22579CA45eE22E2E16dDF72D955D6cf4c767B0eF"
 
@@ -60,7 +55,7 @@ async function send({
     const transaction = {
       to,
       value: parseEther(value),
-      feeCurrency: FEE_CURRENCIES_ALFAJORES["cusd"],
+      feeCurrency: "0xc9cce1e51F1393CE39EB722E3e59eDE6faBf89fD", // Adapter address
       maxFeePerGas: price,
       maxPriorityFeePerGas: price,
     }
@@ -76,11 +71,11 @@ async function send({
     const price = await getGasPrice(client)
     const hash = await client.writeContract({
       abi: stableTokenABI,
-      address: FEE_CURRENCIES_ALFAJORES["cusd"],
+      address: "0xc9cce1e51F1393CE39EB722E3e59eDE6faBf89fD",
       functionName: "transfer",
       args: [to, parseEther(value)],
       // set the fee currency on the contract write call
-      feeCurrency: FEE_CURRENCIES_ALFAJORES["cusd"],
+      feeCurrency: "0xc9cce1e51F1393CE39EB722E3e59eDE6faBf89fD", // Adapter address
       maxFeePerGas: price,
       maxPriorityFeePerGas: price,
     })
@@ -93,7 +88,7 @@ async function send({
 async function getGasPrice(client) {
   const priceHex = await client.request({
     method: "eth_gasPrice",
-    params: [FEE_CURRENCIES_ALFAJORES["cusd"]],
+    params: ["0xc9cce1e51F1393CE39EB722E3e59eDE6faBf89fD"], // Adapter address
   })
   return hexToBigInt(priceHex)
 }
